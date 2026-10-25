@@ -167,13 +167,13 @@ Possible future improvements include:
 
 👥 Team and Contributions
 
-Project: RupeeLens — Financial Visibility & Intelligence
+Project: RupeeLens — Financial Visibility & Hidden Expense Discovery
 
-Team Members: Add the names of all participating team members here.
+Team Members: Sinchana ,Shubha ,Sinchana G R ,Srushti Ramesh Somannavar.
 
-Institution: Add your college or institution name here.
+Institution: B M S College of Engineering.
 
-Event: Add the official hackathon name here.
+Event: Srujana Hackthon.
 
 This project was developed as a collaborative student project to explore practical ways of making personal finance easier to understand.
 
