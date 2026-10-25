@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rupees Lens | Financial Visibility & Intelligence</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <h2 class="logo">◈ Rupees Lens</h2>
+    <p class="tagline">See beyond spending.</p>
+
+    <nav>
+        <a class="active" href="#overview">◫ Overview</a>
+        <a href="#transactions">↔ Transactions</a>
+        <a href="#radar">◎ Expense Leak Radar</a>
+        <a href="#subscriptions">⟳ Subscriptions</a>
+        <a href="#forecast">▥ Yearly Forecast</a>
+        <a href="#simulator">✳ Savings Simulator</a>
+    </nav>
+
+    <div class="sidebar-note">
+        <span>YOUR MONEY,</span>
+        <strong>Made Visible.</strong>
+    </div>
+</aside>
+
+<main class="main-content">
+
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">FINANCIAL VISIBILITY & INTELLIGENCE</p>
+            <h1>Your money, decoded.</h1>
+            <p class="muted">
+                Understand your habits. Discover your hidden expenses.
+            </p>
+        </div>
+
+        <div class="profile">RL</div>
+    </header>
+
+    <!-- FINANCIAL OVERVIEW -->
+
+    <section id="overview">
+
+        <div class="section-heading">
+            <div>
+                <h2>Financial Overview</h2>
+                <p>Your financial position at a glance.</p>
+            </div>
+
+            <span class="live-label">● PERSONAL MONEY MAP</span>
+        </div>
+
+        <div class="summary-grid">
+
+            <article class="card income-card">
+                <p>Total Income</p>
+                <h2 id="totalIncome">₹0</h2>
+                <span>Money received this month</span>
+            </article>
+
+            <article class="card expense-card">
+                <p>Total Expenses</p>
+                <h2 id="totalExpenses">₹0</h2>
+                <span>Money spent this month</span>
+            </article>
+
+            <article class="card balance-card">
+                <p>Remaining Balance</p>
+                <h2 id="balance">₹0</h2>
+                <span>Income minus expenses</span>
+            </article>
+
+            <article class="card radar-card">
+                <p>Potential Expense Leaks</p>
+                <h2 id="leakCount">0</h2>
+                <span>Patterns worth investigating</span>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- TRANSACTIONS -->
+
+    <section class="panel" id="transactions">
+
+        <div class="section-heading">
+            <div>
+                <h2>Record a Transaction</h2>
+                <p>Add your own income or expenses.</p>
+            </div>
+        </div>
+
+        <form id="transactionForm" class="transaction-form">
+
+            <label>
+                Description
+                <input
+                    id="description"
+                    type="text"
+                    placeholder="e.g. Grocery shopping"
+                    required
+                >
+            </label>
+
+            <label>
+                Amount (₹)
+                <input
+                    id="amount"
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="e.g. 500"
+                    required
+                >
+            </label>
+
+            <label>
+                Date
+                <input id="date" type="date" required>
+            </label>
+
+            <label>
+                Transaction Type
+                <select id="type">
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+            </label>
+
+            <label>
+                Category
+                <select id="category">
+                    <option>Food</option>
+                    <option>Transport</option>
+                    <option>Shopping</option>
+                    <option>Bills</option>
+                    <option>Subscription</option>
+                    <option>Rent</option>
+                    <option>Healthcare</option>
+                    <option>Education</option>
+                    <option>Entertainment</option>
+                    <option>Salary</option>
+                    <option>Other</option>
+                </select>
+            </label>
+
+            <label>
+                Spending Type
+                <select id="necessity">
+                    <option value="essential">Essential</option>
+                    <option value="flexible">Flexible</option>
+                </select>
+            </label>
+
+            <button class="primary-button" type="submit">
+                + Add Transaction
+            </button>
+
+        </form>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="transactionList">
+                    <tr>
+                        <td colspan="6">No transactions yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- CHARTS -->
+
+    <section class="chart-grid">
+
+        <article class="panel chart-panel">
+    <div class="chart-heading">
+        <div>
+            <h2>Income vs Expenses</h2>
+            <p id="chartDescription">Compare your finances month by month.</p>
+        </div>
+
+        <div class="chart-filters">
+            <label for="chartPeriod">View:</label>
+            <select id="chartPeriod">
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+
+            <label for="chartYear">Year:</label>
+            <select id="chartYear"></select>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="monthlyChart"></canvas>
+    </div>
+</article>
+        <article class="panel chart-panel">
+            <h2>Where Your Money Goes</h2>
+            <p>Explore your expense categories.</p>
+
+            <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- EXPENSE LEAK RADAR -->
+
+    <section class="panel" id="radar">
+
+        <div class="section-heading">
+            <div>
+                <h2>◎ Expense Leak Radar</h2>
+                <p>
+                    Find recurring costs and unusual spending patterns.
+                </p>
+            </div>
+        </div>
+
+        <div id="radarResults" class="insight-list">
+            Add transactions to discover spending patterns.
+        </div>
+
+    </section>
+
+    <!-- SUBSCRIPTION MANAGER -->
+
+    <section class="panel" id="subscriptions">
+
+        <div class="section-heading">
+            <div>
+                <h2>Subscription Manager</h2>
+                <p>You choose which subscriptions to track.</p>
+            </div>
+        </div>
+
+        <form id="subscriptionForm" class="transaction-form">
+
+            <label>
+                Subscription Name
+                <input
+                    id="subName"
+                    type="text"
+                    placeholder="e.g. Music plan"
+                    required
+                >
+            </label>
+
+            <label>
+                Amount (₹)
+                <input
+                    id="subAmount"
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="e.g. 199"
+                    required
+                >
+            </label>
+
+            <label>
+                Billing Frequency
+                <select id="subFrequency">
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly" selected>Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </label>
+
+            <label>
+                Next Billing Date
+                <input id="subDate" type="date" required>
+            </label>
+
+            <button class="primary-button" type="submit">
+                + Add Subscription
+            </button>
+
+        </form>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subscription</th>
+                        <th>Frequency</th>
+                        <th>Next Payment</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="subscriptionList">
+                    <tr>
+                        <td colspan="5">No subscriptions added.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="subscription-summary">
+            <span>Estimated Annual Subscription Cost</span>
+            <strong id="subscriptionAnnual">₹0</strong>
+        </div>
+
+    </section>
+
+    <!-- YEARLY FORECAST -->
+
+    <section class="panel" id="forecast">
+
+        <div class="section-heading">
+            <div>
+                <h2>12-Month Money Forecast</h2>
+                <p>
+                    Track actual and planned expenses separately for each
+                    month. Missing months will not automatically copy
+                    another month's expenses.
+                </p>
+            </div>
+        </div>
+
+        <form id="planForm" class="transaction-form">
+
+            <label>
+                Month
+                <input id="planMonth" type="month" required>
+            </label>
+
+            <label>
+                Planned Expenses (₹)
+                <input
+                    id="planAmount"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="Enter this month's plan"
+                    required
+                >
+            </label>
+
+            <button class="primary-button" type="submit">
+                Save Monthly Plan
+            </button>
+
+        </form>
+
+        <div id="forecastSummary" class="forecast-summary">
+            Add monthly plans and transactions to build your forecast.
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Actual Expenses</th>
+                        <th>Planned Expenses</th>
+                        <th>Estimated Total</th>
+                    </tr>
+                </thead>
+
+                <tbody id="forecastList">
+                    <tr>
+                        <td colspan="4">
+                            Your monthly forecast will appear here.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- SAVINGS SIMULATOR -->
+
+    <section class="panel" id="simulator">
+
+        <div class="section-heading">
+            <div>
+                <h2>✳ What-If Savings Simulator</h2>
+                <p>Explore how reducing flexible spending could help.</p>
+            </div>
+        </div>
+
+        <label class="simulator-input">
+            Reduce Flexible Spending By
+            <strong id="reductionLabel">10%</strong>
+
+            <input
+                id="reduction"
+                type="range"
+                min="0"
+                max="50"
+                value="10"
+            >
+        </label>
+
+        <div class="simulator-result">
+
+            <div>
+                <p>Potential Monthly Saving</p>
+                <h2 id="monthlySaving">₹0</h2>
+            </div>
+
+            <div>
+                <p>Potential Annual Saving</p>
+                <h2 id="annualSaving">₹0</h2>
+            </div>
+
+        </div>
+
+        <p class="muted">
+            This is a hypothetical estimate based on your recorded
+            flexible expenses, not a guaranteed saving.
+        </p>
+
+    </section>
+
+    <footer>
+        Rupees Lens · See Beyond Spending · Understand Your Money
+    </footer>
+    <!-- FINANCIAL ANOMALY RADAR -->
+<section class="panel" id="anomalyRadarSection">
+    <div class="section-heading">
+        <div>
+            <h2>🚨 Financial Anomaly Radar</h2>
+            <p>Detects spending deviations, duplicate charges, and sudden merchant spikes.</p>
+        </div>
+    </div>
+
+    <div id="anomalyResults" class="insight-list">
+        Add transactions to scan for anomalies.
+    </div>
+</section>
+<!-- MONEY LEAK DETECTIVE CARD -->
+<div class="card leak-card">
+    <div class="leak-header">
+        <h2>🕵️ Money Leak Detective</h2>
+        <div class="leak-score-badge">
+            Leak Score: <span id="leakScore">0</span>/100
+        </div>
+    </div>
+    <p class="leak-subtitle">Hidden expense leaks detected from your recent transactions:</p>
+
+    <div id="leakAlertsList" class="leak-alerts-list">
+        <!-- Dynamic leak cards render here -->
+    </div>
+</div>
+<!-- SMART SAVINGS CHALLENGE CARD -->
+<!-- SMART SAVINGS CHALLENGE CARD -->
+<section class="panel" id="savingsChallengeSection">
+    <div class="section-heading">
+        <div>
+            <h2>🎯 Smart Savings Challenge</h2>
+            <p>Turn financial habits into achievements and reach your big goals!</p>
+        </div>
+    </div>
+    
+    <!-- Goal Progress Section -->
+    <div style="margin: 15px 0; background: #f8fafc; padding: 15px; border-radius: 8px;">
+        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #1e293b; margin-bottom: 8px;">
+            <span>Current Challenge Progress</span>
+            <span id="challengeProgressText">₹0 / ₹5,000</span>
+        </div>
+        <div style="width: 100%; background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden;">
+            <div id="challengeProgressBar" style="width: 0%; background: #22c55e; height: 100%; transition: width 0.3s ease;"></div>
+        </div>
+    </div>
+
+
+    <!-- Badges Container -->
+    <h3 style="margin-top: 15px; font-size: 1.1rem; color: #1e293b;">🏆 Your Badges</h3>
+    <div id="badgeContainer" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+        <!-- Dynamic badges render here -->
+    </div>
+</section>
+
+
+<!-- MONEY AI CHATBOT -->
+<div id="aiChatbot" class="chatbot-container">
+    <div class="chatbot-header">
+        <span>🤖 Rupees Lens Money AI</span>
+        <button id="closeChatBtn">&times;</button>
+    </div>
+    <div id="chatMessages" class="chat-messages">
+        <div class="bot-msg">
+            Hi! I'm your Money AI. Ask me anything like <i>"How much did I spend on non-essentials?"</i> or <i>"What is my remaining balance?"</i>
+        </div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="userInput" placeholder="Ask your money AI..." />
+        <button id="sendBtn">Send</button>
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
