@@ -180,6 +180,9 @@ This project was developed as a collaborative student project to explore practic
 📌 Disclaimer
 
 RupeeLens is an educational project intended to support financial awareness and budgeting. Its insights are based on user-provided information and implemented features. It does not guarantee the detection of fraud or financial loss, and its estimates should not be considered guaranteed outcomes.
+## Project Report
+
+[View RupeeLens Project Report (PDF)](RupeeLens_Project_Report.pdf)
 
 ---
 
