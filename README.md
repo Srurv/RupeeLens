@@ -169,7 +169,7 @@ Possible future improvements include:
 
 Project: RupeeLens — Financial Visibility & Hidden Expense Discovery
 
-Team Members: Sinchana ,Shubha ,Sinchana G R ,Srushti Ramesh Somannavar.
+Team Members: Sinchana ,Shubha G S ,Sinchana G R ,Srushti Ramesh Somannavar.
 
 Institution: B M S College of Engineering.
 
